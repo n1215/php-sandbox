@@ -1,0 +1,55 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+require __DIR__ . '/../vendor/autoload.php';
+
+class Hi
+{
+    /**
+     * @param string $name
+     * @return void
+     **/
+    public function handle(string $name): void
+    {
+        echo 'Hi ' . $name . '!' . PHP_EOL;
+    }
+}
+
+class Hello
+{
+    /**
+     * @param string $name
+     * @return void
+     **/
+    public function handle(string $name): void
+    {
+        echo 'Hello ' . $name . '!' . PHP_EOL;
+    }
+}
+
+class GoodBye
+{
+    /**
+     * @param string $name
+     * @return void
+     **/
+    public function handle(string $name): void
+    {
+        echo 'GoodBye ' . $name . '!' . PHP_EOL;
+    }
+}
+
+$definition = [
+    Hi::class,
+    'hello' => Hello::class,
+    'bye' => GoodBye::class,
+];
+
+$app = (new \N1215\MicroCli\ApplicationFactory())->make($definition);
+
+
+$app->run($argv);
+
+
+
