@@ -15,15 +15,11 @@ class Application
     private $cliRouter;
 
     /**
-     * @param array $commandMap
+     * @param CliRouter $cliRouter
      */
-    public function __construct(array $commandMap)
+    public function __construct(CliRouter $cliRouter)
     {
-        if (empty($commandMap)) {
-            throw new \InvalidArgumentException('empty command map');
-        }
-
-        $this->cliRouter = new CliRouter($commandMap);
+        $this->cliRouter = $cliRouter;
     }
 
     /**
@@ -31,7 +27,9 @@ class Application
      */
     public function run(array $argv): void
     {
-        $context = $this->cliRouter->match($argv);
-        $context->getCommand()->handle(...$context->getInputs());
+        // todo bootstrap
+
+        $context = $this->cliRouter->match(new Input($argv));
+        $context->getCommand()->handle($context->getInput());
     }
 }

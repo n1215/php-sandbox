@@ -9,6 +9,7 @@ class Hi
     /**
      * @param string $name
      * @return void
+     * todo 第一引数にIO的なものを渡す？ WriteHandle ReadHandle ErrorHandle
      **/
     public function handle(string $name): void
     {
@@ -37,6 +38,19 @@ class GoodBye
     public function handle(string $name): void
     {
         echo 'GoodBye ' . $name . '!' . PHP_EOL;
+    }
+}
+
+
+class Fuga
+{
+    /**
+     * @param string $name 名前
+     * @param int|null $test テストオプション
+     */
+    public function handle(string $name, ?int $test = null): void
+    {
+        echo 'Fuga ' . $name . '!' . PHP_EOL;
     }
 }
 

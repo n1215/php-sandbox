@@ -8,9 +8,9 @@ class ApplicationFactory
     public function make(array $definitions): Application
     {
         $commandMap = array_map(function ($value) {
-            return new $value;
+            return new Command([new $value, 'handle']);
         }, $definitions);
 
-        return new Application($commandMap);
+        return new Application(new CliRouter($commandMap));
     }
 }

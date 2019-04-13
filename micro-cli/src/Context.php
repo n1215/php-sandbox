@@ -14,10 +14,10 @@ final class Context
 
     /**
      * コンストラクタ
-     * @param  $command
-     * @param array $inputs
+     * @param CommandInterface $command
+     * @param InputInterface $inputs
      */
-    public function __construct($command, array $inputs)
+    public function __construct(CommandInterface $command, InputInterface $inputs)
     {
         $this->command = $command;
         $this->inputs = $inputs;
@@ -26,15 +26,15 @@ final class Context
     /**
      * @return mixed
      */
-    public function getCommand()
+    public function getCommand(): CommandInterface
     {
         return $this->command;
     }
 
     /**
-     * @return array
+     * @return InputInterface
      */
-    public function getInputs(): array
+    public function getInput(): InputInterface
     {
         return $this->inputs;
     }

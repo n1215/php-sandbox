@@ -5,6 +5,9 @@ namespace N1215\MicroCli;
 
 class CliRouter
 {
+    /**
+     * @var CommandInterface[]
+     */
     private $commandMap;
 
     public function __construct(array $commandMap)
@@ -16,17 +19,17 @@ class CliRouter
         $this->commandMap = $commandMap;
     }
 
-    public function match(array $argv): Context
+    public function match(InputInterface $input): Context
     {
-        $inputs = array_slice($argv, 1);
+        $inputs = $input->shiftArgument();
 
-        $pathCandidate = $inputs[0] ?? null;
+        $pathCandidate = $inputs->getArgument(0);
         if ($pathCandidate === null) {
-            return new Context($this->commandMap[0], []);
+            return new Context($this->commandMap[0], $inputs);
         }
 
         if (array_key_exists($pathCandidate, $this->commandMap)) {
-            return new Context($this->commandMap[$pathCandidate], array_slice($inputs, 1));
+            return new Context($this->commandMap[$pathCandidate], $inputs->shiftArgument());
         }
 
         return new Context($this->commandMap[0], $inputs);
