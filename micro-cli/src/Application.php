@@ -28,8 +28,7 @@ class Application
     public function run(array $argv): void
     {
         // todo bootstrap
-
-        $context = $this->cliRouter->match(new Input($argv));
+        $context = $this->cliRouter->match(Input::new($argv));
         $context->getCommand()->handle($context->getInput());
     }
 }

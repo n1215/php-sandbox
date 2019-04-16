@@ -10,6 +10,7 @@ class Hi
      * @param string $name
      * @return void
      * todo 第一引数にIO的なものを渡す？ WriteHandle ReadHandle ErrorHandle
+     * todo Aura.Cliで書き換えたい
      **/
     public function handle(string $name): void
     {
@@ -47,10 +48,16 @@ class Fuga
     /**
      * @param string $name 名前
      * @param int|null $test テストオプション
+     * @param bool|null $debug デバッグモード
      */
-    public function handle(string $name, ?int $test = null): void
+    public function handle(string $name, ?int $test = null, ?bool $debug = false): void
     {
-        echo 'Fuga ' . $name . '!' . PHP_EOL;
+        var_dump([
+            'command' => self::class,
+            'name' => $name,
+            'test' => $test,
+            'debug' => $debug
+        ]);
     }
 }
 
@@ -58,6 +65,7 @@ $definition = [
     Hi::class,
     'hello' => Hello::class,
     'bye' => GoodBye::class,
+    'fuga' => Fuga::class,
 ];
 
 $app = (new \N1215\MicroCli\ApplicationFactory())->make($definition);
