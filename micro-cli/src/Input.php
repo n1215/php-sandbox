@@ -81,7 +81,7 @@ class Input implements InputInterface
     }
 
     /**
-     * todo Aura.Cliで書き換えたいところ
+     * todo Aura.Cliなどで書き換えたい
      * @param array $inputs
      * @return Input
      */

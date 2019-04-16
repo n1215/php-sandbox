@@ -39,14 +39,15 @@ class Command implements CommandInterface
             throw new \LogicException('no type declaration');
         }
 
+        $defaultValue = $parameter->isOptional() ? $parameter->getDefaultValue() : null;
+
         // argument
         if (!$type->allowsNull()) {
-            $argument = $input->getArgument($cursor++);
+            $argument = $input->getArgument($cursor++, $defaultValue);
             return $this->cast($argument, $type);
         }
 
         // option
-        $defaultValue = $parameter->isOptional() ? $parameter->getDefaultValue() : null;
         $option = $input->getLongOption($parameter->getName());
         if ($option === null) {
             $option = $input->getOption($parameter->getName()[0], $defaultValue);
