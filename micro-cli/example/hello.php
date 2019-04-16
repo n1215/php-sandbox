@@ -37,7 +37,7 @@ $app->run($argv);
 // Hello, Adam!
 // Hello, Adam!
 
-// $ php hello.php Adam -times=3
+// $ php hello.php Adam --times=3
 // Hello, Adam!
 // Hello, Adam!
 // Hello, Adam!
