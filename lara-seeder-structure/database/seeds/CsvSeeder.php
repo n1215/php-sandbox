@@ -2,21 +2,14 @@
 declare(strict_types=1);
 
 use App\Models\Master;
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Seeder;
 use \Illuminate\Database\Eloquent\Model;
-use Illuminate\Filesystem\FilesystemManager;
 
 abstract class CsvSeeder extends Seeder
 {
-    /**
-     * @var Filesystem
-     */
-    protected $disk;
-
     /**
      * @var ConnectionInterface
      */
@@ -25,9 +18,8 @@ abstract class CsvSeeder extends Seeder
     /**
      * @inheritDoc
      */
-    public function __construct(DatabaseManager $databaseManager, FilesystemManager $filesystemManager)
+    public function __construct(DatabaseManager $databaseManager)
     {
-        $this->disk = $filesystemManager->disk($this->getDiskName());
         $this->conn = $databaseManager->connection($this->getConnectionName());
     }
 
@@ -71,7 +63,15 @@ abstract class CsvSeeder extends Seeder
             throw new LogicException('Eloquentモデルを指定してください class = ' . $modelClass);
         }
 
-        $fileName = $this->makeFileName(new $modelClass);
+        $filePath = $this->makeFilePath(new $modelClass);
+
+        $file = new \SplFileObject($filePath);
+        $file->setFlags(
+            \SplFileObject::READ_CSV |
+            \SplFileObject::READ_AHEAD |
+            \SplFileObject::SKIP_EMPTY |
+            \SplFileObject::DROP_NEW_LINE
+        );
 
         try {
             $resource = $this->disk->readStream($fileName);
@@ -80,15 +80,6 @@ abstract class CsvSeeder extends Seeder
         }
 
         $this->loadCsv($resource, $modelClass);
-    }
-
-    /**
-     * CSVファイルの読み取りに使うディスク名を取得
-     * @return string
-     */
-    protected function getDiskName(): ?string
-    {
-        return null;
     }
 
     /**
@@ -114,9 +105,9 @@ abstract class CsvSeeder extends Seeder
      * @param Model $model
      * @return string
      */
-    protected function makeFileName(Model $model): string
+    protected function makeFilePath(Model $model): string
     {
-        return $model->getTable() . '.csv';
+        return database_path('seeds/master/' . $model->getTable() . '.csv');
     }
 
     /**
