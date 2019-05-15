@@ -11,7 +11,7 @@ namespace N1215\Phlower;
 interface SinkInterface
 {
     /**
-     * @param Iterable<array> $stream
+     * @param iterable<array> $stream
      */
-    public function write(Iterable $stream): void;
+    public function write(iterable $stream): void;
 }

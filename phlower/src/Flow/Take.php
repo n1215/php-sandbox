@@ -32,7 +32,7 @@ class Take implements FlowInterface
      * @param iterable $stream
      * @return iterable
      */
-    public function pass(iterable $stream): Iterable
+    public function pass(iterable $stream): iterable
     {
         $index = 0;
         foreach ($stream as $data) {

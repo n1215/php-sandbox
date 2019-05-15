@@ -29,7 +29,7 @@ class Filter implements FlowInterface
      * @param iterable $stream
      * @return iterable
      */
-    public function pass(iterable $stream): Iterable
+    public function pass(iterable $stream): iterable
     {
         $callable = $this->callable;
         foreach ($stream as $data) {

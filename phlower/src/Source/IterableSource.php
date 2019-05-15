@@ -6,10 +6,10 @@ namespace N1215\Phlower\Source;
 use N1215\Phlower\SourceInterface;
 
 /**
- * Class IterableSource
+ * Class iterableSource
  * @package N1215\Phlower\Source
  */
-final class IterableSource implements SourceInterface
+final class iterableSource implements SourceInterface
 {
     /**
      * @var array
@@ -17,9 +17,9 @@ final class IterableSource implements SourceInterface
     private $iterable;
 
     /**
-     * @param Iterable $iterable
+     * @param iterable $iterable
      */
-    public function __construct(Iterable $iterable)
+    public function __construct(iterable $iterable)
     {
         $this->iterable = $iterable;
     }
@@ -27,7 +27,7 @@ final class IterableSource implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function read(): Iterable
+    public function read(): iterable
     {
         return $this->iterable;
     }

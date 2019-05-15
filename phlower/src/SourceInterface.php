@@ -11,7 +11,7 @@ namespace N1215\Phlower;
 interface SourceInterface
 {
     /**
-     * @return Iterable<array> $stream
+     * @return iterable<array> $stream
      */
-    public function read(): Iterable;
+    public function read(): iterable;
 }

@@ -11,7 +11,7 @@ use N1215\Phlower\FlowInterface;
  */
 class Identical implements FlowInterface
 {
-    public function pass(iterable $stream): Iterable
+    public function pass(iterable $stream): iterable
     {
         return $stream;
     }

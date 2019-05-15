@@ -11,8 +11,8 @@ namespace N1215\Phlower;
 interface FlowInterface
 {
     /**
-     * @param Iterable<array> $stream
-     * @return Iterable<array>
+     * @param iterable<array> $stream
+     * @return iterable<array>
      */
-    public function pass(Iterable $stream): Iterable;
+    public function pass(iterable $stream): iterable;
 }

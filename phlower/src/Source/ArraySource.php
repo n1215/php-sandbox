@@ -27,7 +27,7 @@ final class ArraySource implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function read(): Iterable
+    public function read(): iterable
     {
         return $this->array;
     }
