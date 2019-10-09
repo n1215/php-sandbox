@@ -23,7 +23,7 @@ class PostsCsvResponder
     ];
 
     /**
-     * @param Enumerable $posts
+     * @param Enumerable<Post> $posts
      * @return StreamedResponse
      */
     public function respond(Enumerable $posts): StreamedResponse

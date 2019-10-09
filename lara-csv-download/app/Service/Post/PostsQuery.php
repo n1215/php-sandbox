@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Post;
 
 use App\Models\Post;
+use App\Service\LazyChunker;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Enumerable;
 use Illuminate\Support\LazyCollection;
@@ -24,27 +25,14 @@ class PostsQuery
         return LazyCollection::make((function () {
             $query = Post::query();
 
-            $page = 1;
-
-            do {
-                $posts = $query->forPage($page, self::CHUNK_COUNT)->get();
-
-                $countResults = $posts->count();
-
-                if ($countResults == 0) {
-                    break;
-                }
-
+            $chunker = (new LazyChunker(self::CHUNK_COUNT, function (Collection $posts) {
                 $posts->load('author');
                 foreach($posts as $post) {
                     yield $post;
                 }
+            }));
 
-                unset($results);
-
-                $page++;
-            } while ($countResults == self::CHUNK_COUNT);
-
+            return $chunker->chunk($query);
         }));
     }
 }
