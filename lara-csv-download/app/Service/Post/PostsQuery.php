@@ -20,16 +20,11 @@ class PostsQuery
     /**
      * @var LazyChunker
      */
-    private $chunker;
+    private $lazyChunker;
 
     public function __construct()
     {
-        $this->chunker = new LazyChunker(self::CHUNK_COUNT, function (Collection $posts) {
-            $posts->load('author');
-            foreach($posts as $post) {
-                yield $post;
-            }
-        });
+        $this->lazyChunker = new LazyChunker(self::CHUNK_COUNT);
     }
 
     /**
@@ -38,6 +33,11 @@ class PostsQuery
     public function get(): Enumerable
     {
         $query = Post::query();
-        return $this->chunker->chunk($query);
+        return $this->lazyChunker
+            ->chunk($query)
+            ->tapEach(function (Collection $posts) {
+                $posts->load('author');
+            })
+            ->collapse();
     }
 }

@@ -12,23 +12,15 @@ use Illuminate\Support\LazyCollection;
 class LazyChunker
 {
     /**
-     * @var callable
-     */
-    private $callback;
-
-
-    /**
      * @var int
      */
     private $count;
 
     /**
      * @param int $count
-     * @param callable $callback
      */
-    public function __construct(int $count, callable $callback)
+    public function __construct(int $count)
     {
-        $this->callback = $callback;
         $this->count = $count;
     }
 
@@ -53,10 +45,8 @@ class LazyChunker
                     break;
                 }
 
-                $generator = ($this->callback)($results, $page);
-                assert($generator instanceof \Traversable);
+                yield $results;
 
-                yield from $generator;
                 unset($results);
 
                 $page++;
