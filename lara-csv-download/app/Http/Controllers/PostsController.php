@@ -42,9 +42,9 @@ class PostsController extends Controller
     public function download(): StreamedResponse
     {
         // Eager Load確認用
-//        DB::listen(function ($event) {
-//            info('query', [$event->sql, $event->bindings, $event->time]);
-//        });
+        DB::listen(function ($event) {
+            info('query', [$event->sql, $event->bindings, $event->time]);
+        });
 
         return $this->postsResponder->respond($this->postsQuery->get());
     }

@@ -37,7 +37,7 @@ class PostsCsvResponder
                 $file->fputcsv(self::CSV_HEADERS);
                 foreach($posts as $index => $post) {
                     // LazyCollectionの挙動確認用
-//                    info('put row of post no.' . ($index + 1));
+                    info('put row of post no.' . ($index + 1));
                     $file->fputcsv($this->postToCsvRow($post));
                 }
             },
