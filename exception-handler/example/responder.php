@@ -155,7 +155,7 @@ class ShowPostResponder extends Responder
      * @param ValidationException $e
      * @return JsonResponse
      */
-    public function runtimeError(ValidationException $e): JsonResponse
+    public function validationFailed(ValidationException $e): JsonResponse
     {
         return new JsonResponse(['message' => 'validation error :' . $e->getMessage()], 422);
     }
