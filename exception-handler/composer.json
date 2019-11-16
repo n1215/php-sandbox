@@ -1,0 +1,38 @@
+{
+    "name": "n1215/exception-handler",
+    "description": "php exception handling library",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "n1215",
+            "email": "knakae1215@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "N1215\\ExceptionHandler\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "N1215\\ExceptionHandler\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": [
+            "vendor/bin/phpunit"
+        ],
+        "coverage": [
+            "rm -rf ./build",
+            "mkdir ./build",
+            "phpdbg -qrr vendor/bin/phpunit --coverage-html ./build"
+        ]
+    }
+}
