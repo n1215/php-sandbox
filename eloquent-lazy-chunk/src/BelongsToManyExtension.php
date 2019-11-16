@@ -9,14 +9,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 /**
  * Class BelongsToExtension
  * @package N1215\EloquentLazyChunk
- *
  */
 class BelongsToManyExtension
 {
+    public function install(): void
+    {
+        BelongsToMany::macro('lazyChunk', self::lazyChunk());
+        BelongsToMany::macro('lazyChunkById', self::lazyChunkById());
+    }
+
     /**
      * @return Closure
      */
-    public static function lazyChunk(): Closure
+    private static function lazyChunk(): Closure
     {
         return function(int $count) {
             /** @var BelongsToMany $this */
@@ -31,7 +36,7 @@ class BelongsToManyExtension
     /**
      * @return Closure
      */
-    public static function lazyChunkById(): Closure
+    private static function lazyChunkById(): Closure
     {
         return function (int $count, $column = null, $alias = null) {
             /** @var BelongsToMany $this */

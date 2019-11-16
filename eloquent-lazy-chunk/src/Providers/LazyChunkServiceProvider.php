@@ -25,16 +25,8 @@ class LazyChunkServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        QueryBuilder::macro('lazyChunk', QueryBuilderExtension::lazyChunk());
-        QueryBuilder::macro('lazyChunkById', QueryBuilderExtension::lazyChunkById());
-
-        EloquentBuilder::macro('lazyChunk', QueryBuilderExtension::lazyChunk());
-        EloquentBuilder::macro('lazyChunkById', QueryBuilderExtension::lazyChunkById());
-
-        BelongsToMany::macro('lazyChunk', BelongsToManyExtension::lazyChunk());
-        BelongsToMany::macro('lazyChunkById', BelongsToManyExtension::lazyChunkById());
-
-        HasManyThrough::macro('lazyChunk', HasManyThroughExtension::lazyChunk());
-        HasManyThrough::macro('lazyChunkById', HasManyThroughExtension::lazyChunkById());
+        (new QueryBuilderExtension())->install();
+        (new BelongsToManyExtension())->install();
+        (new HasManyThroughExtension())->install();
     }
 }

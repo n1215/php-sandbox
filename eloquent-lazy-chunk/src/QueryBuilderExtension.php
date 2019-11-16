@@ -14,6 +14,14 @@ use Illuminate\Support\LazyCollection;
  */
 class QueryBuilderExtension
 {
+    public function install(): void
+    {
+        QueryBuilder::macro('lazyChunk', self::lazyChunk());
+        QueryBuilder::macro('lazyChunkById', self::lazyChunkById());
+        EloquentBuilder::macro('lazyChunk', self::lazyChunk());
+        EloquentBuilder::macro('lazyChunkById', self::lazyChunkById());
+    }
+
     /**
      * @return Closure
      */

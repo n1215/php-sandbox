@@ -9,14 +9,19 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 /**
  * Class HasManyThroughExtension
  * @package N1215\EloquentLazyChunk
- *
  */
 class HasManyThroughExtension
 {
+    public function install(): void
+    {
+        HasManyThrough::macro('lazyChunk', self::lazyChunk());
+        HasManyThrough::macro('lazyChunkById', self::lazyChunkById());
+    }
+
     /**
      * @return Closure
      */
-    public static function lazyChunk(): Closure
+    private static function lazyChunk(): Closure
     {
         return function(int $count) {
             /** @var HasManyThrough $this */
@@ -27,7 +32,7 @@ class HasManyThroughExtension
     /**
      * @return Closure
      */
-    public static function lazyChunkById(): Closure
+    private static function lazyChunkById(): Closure
     {
         return function (int $count, $column = null, $alias = null) {
             /** @var HasManyThrough $this */
