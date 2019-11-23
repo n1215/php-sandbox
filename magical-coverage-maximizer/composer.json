@@ -1,0 +1,45 @@
+{
+    "name": "n1215/magical-coverage-maximizer",
+    "description": "magically increase test coverages of your php projects",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "n1215",
+            "email": "knakae1215@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "ext-json": "*",
+        "mnapoli/silly": "^1.7",
+        "zendframework/zend-code": "^3.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.1",
+        "pcov/clobber": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "N1215\\MagicalCoverageMaximizer\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "N1215\\MagicalCoverageMaximizer\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": [
+            "vendor/bin/phpunit"
+        ],
+        "coverage": [
+            "rm -rf ./build",
+            "mkdir ./build",
+            "php -dmemory_limit=8G -dmax_execution_time=0 -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude=\"~vendor~\" ./vendor/bin/phpunit --coverage-text"
+        ]
+    },
+    "config": {
+        "process-timeout":0
+    }
+}

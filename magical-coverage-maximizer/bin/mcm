@@ -1,0 +1,46 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use N1215\MagicalCoverageMaximizer\FakeCodeGenerator;
+use Symfony\Component\Console\Output\OutputInterface;
+
+$app = new Silly\Application();
+
+$app->command('generate', function (OutputInterface $output) use ($argv) {
+
+    $cwd = getcwd();
+    $composerJsonPath = $cwd. DIRECTORY_SEPARATOR . 'composer.json';
+
+    if (!file_exists($composerJsonPath)) {
+        throw new RuntimeException('composer.json not found in current working directory: ' . $cwd);
+    }
+
+    $composerJsonContent = file_get_contents($composerJsonPath);
+    $composerJson = json_decode($composerJsonContent, true);
+
+    $psr4AutoLoadingSetting = $composerJson['autoload']['psr-4'] ?? null;
+    if ($psr4AutoLoadingSetting === null) {
+        throw new RuntimeException('you should use PSR-4 autoloading');
+    }
+
+    $projectRootNameSpace = array_key_first($psr4AutoLoadingSetting);
+
+    $generatingNameSpace = rtrim($projectRootNameSpace, '\\') . '\\' . 'Mcm';
+    $generatingDirectoryPath = $cwd . DIRECTORY_SEPARATOR . $psr4AutoLoadingSetting[$projectRootNameSpace] . DIRECTORY_SEPARATOR . 'Mcm';
+
+    $output->writeln('Name Space: ' . $generatingNameSpace);
+    $output->writeln('Path: ' . $generatingDirectoryPath);
+
+    if (!is_dir($generatingDirectoryPath)) {
+        mkdir($generatingDirectoryPath);
+    }
+
+    (new FakeCodeGenerator())->generate($generatingNameSpace, 'FakeClass', $generatingDirectoryPath, 500, 10000);
+
+    $output->writeln('generated');
+});
+
+$app->run();

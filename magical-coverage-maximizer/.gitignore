@@ -1,0 +1,12 @@
+._*
+.~lock.*
+.DS_Store
+.idea
+*.cache
+nbproject
+.project
+.settings
+composer.lock
+vendor/
+build
+src/Mcm/*
