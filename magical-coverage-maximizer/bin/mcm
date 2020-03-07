@@ -38,7 +38,7 @@ $app->command('generate', function (OutputInterface $output) use ($argv) {
         mkdir($generatingDirectoryPath);
     }
 
-    (new FakeCodeGenerator())->generate($generatingNameSpace, 'FakeClass', $generatingDirectoryPath, 500, 10000);
+    (new FakeCodeGenerator())->generate($generatingNameSpace, 'FakeClass', $generatingDirectoryPath, 1000, 10000);
 
     $output->writeln('generated');
 });

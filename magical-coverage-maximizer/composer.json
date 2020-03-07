@@ -36,7 +36,7 @@
         "coverage": [
             "rm -rf ./build",
             "mkdir ./build",
-            "php -dmemory_limit=8G -dmax_execution_time=0 -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude=\"~vendor~\" ./vendor/bin/phpunit --coverage-text"
+            "php -dmemory_limit=16G -dmax_execution_time=0 -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude=\"~vendor~\" ./vendor/bin/phpunit --coverage-html=build"
         ]
     },
     "config": {
