@@ -1,0 +1,45 @@
+{
+  "name": "n1215/request-extractor-example",
+  "description": "Request Extractor Example",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "n1215",
+      "email": "knakae1215@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=8.1",
+    "laminas/laminas-httphandlerrunner": "^2.9",
+    "n1215/context": "dev-master",
+    "n1215/request-extractor": "dev-master",
+    "nyholm/psr7": "^1.8",
+    "nyholm/psr7-server": "^1.0",
+    "php-di/php-di": "^7.0"
+  },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../request-extractor",
+      "symlink": true
+    },
+    {
+      "type": "path",
+      "url": "../context",
+      "symlink": true
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "N1215\\RequestExtractorExample\\": "src"
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
